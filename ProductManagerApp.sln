@@ -11,7 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductApp.API", "ProductAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductApp.UI", "ProductApp.UI\ProductApp.UI.csproj", "{4CBAC4C7-FC6C-4A20-95EA-90C59B77B8CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductManagerApp.Test", "ProductManagerApp.Test\ProductManagerApp.Test.csproj", "{AEE3F726-B733-48C0-92A9-BF702D2FD1E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagerApp.Test", "ProductManagerApp.Test\ProductManagerApp.Test.csproj", "{AEE3F726-B733-48C0-92A9-BF702D2FD1E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBScript", "DBScript", "{85BB5D00-88A6-428B-8339-7E9B22BF825D}"
+	ProjectSection(SolutionItems) = preProject
+		..\DbScript\DBCreate.sql = ..\DbScript\DBCreate.sql
+		README.txt = README.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

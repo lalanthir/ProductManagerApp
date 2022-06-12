@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ProductApp.API.BusinessLogic;
-using ProductApp.Data;
 using ProductApp.Domain;
 
 namespace ProductApp.API.Controllers
@@ -15,7 +10,6 @@ namespace ProductApp.API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-       // private readonly ProductContext _context;
         private readonly IProductLogic _logic;
 
         public ProductsController(IProductLogic logic)
@@ -50,9 +44,10 @@ namespace ProductApp.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            return await _logic.SaveProduct(product);
-
-            //return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            var result= await _logic.SaveProduct(product);
+            if (result != null)
+                return result;
+            else return NotFound();
         }
 
         // DELETE: api/Products/5
