@@ -14,7 +14,7 @@
              *ngIf='products.length'>
         <thead>
           <tr>
-            <th  (click)="sort('name', booleanValue)">Product</th>
+            <th  (click)="sort('name', booleanValue)" title="Sort a-z or z-a">Product</th>
             <th>Type</th>
             <th>Price</th>
             <th>Active</th> 
@@ -40,4 +40,8 @@
 <div *ngIf='errorMessage'
      class='alert alert-danger'>
   Error: {{ errorMessage }}
+</div>
+<div *ngIf='successMessage'
+     class='alert alert-success'>
+  Info: {{ successMessage }}
 </div>

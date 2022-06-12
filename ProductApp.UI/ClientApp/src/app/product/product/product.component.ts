@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/sharedServices/product.service';
 export class ProductComponent implements OnInit,OnDestroy {
   products: Product[] = [];
   errorMessage = '';
+  successMessage = '';
   public booleanValue: boolean = false;
   pageTitle ="Available Products";
   constructor(private service: ProductService,  private router: Router,
@@ -41,27 +42,25 @@ export class ProductComponent implements OnInit,OnDestroy {
       console.log('Deleting ID '+ id);
 
       if (confirm("Are you sure you want to delete product : "+name) == true) {
-        console.log("You pressed OK!");
         this.processDelete(id);
-      } else {
-        console.log("You canceled!");
-      }
+      } 
   }
 
   private processDelete(id: number){
+    var self = this;
     this.service.deleteProduct(id)
     .subscribe(
       () => {
         this.initData();
        
-        alert('Product deleted Successfully');
+        self.successMessage= 'Product deleted Successfully';
       },
       error => {
         if(error.error !=null){
-          alert('Error Occurred : '+ error.error.Message);  
+          self.errorMessage= error.error.Message;  
         }
         else{
-          alert('Error Occurred');  
+          self.errorMessage ='Error Occurred';  
         }
               
       }
