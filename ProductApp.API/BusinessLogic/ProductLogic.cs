@@ -1,14 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductApp.Data;
 using ProductApp.Domain;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProductApp.API.BusinessLogic
 {
-    public class ProductLogic
+    public class ProductLogic:IProductLogic
     {
         private readonly ProductContext _context;
         public ProductLogic(ProductContext context)
@@ -16,17 +14,17 @@ namespace ProductApp.API.BusinessLogic
             _context = context;
         }
 
-        public IEnumerable<Product> GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            return  _context.Products.ToList();
+            return await  _context.Products.ToListAsync();
         }
 
-        public Product GetProductById(int Id)
+        public async Task<Product> GetProductByID(int id)
         {
-            return  _context.Products.Find(Id); 
+            return await _context.Products.FindAsync(id);
         }
 
-        public int SaveProduct(Product product)
+        public async Task<Product> SaveProduct(Product product)
         {
             int id = product.Id;
             if (id > 0)
@@ -39,30 +37,21 @@ namespace ProductApp.API.BusinessLogic
             }
             try
             {
-                 _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-              throw;
+                throw;
             }
-            return product.Id;
-        }
+            return product;
+        
+    }
 
-        public bool DeleteProduct(int id)
+        public async Task DeleteProduct(int id)
         {
-            var product = _context.Products.Find(id);
-            if (product == null)
-            {
-                return false;
-            }
+            var product =await _context.Products.FindAsync(id);           
             _context.Products.Remove(product);
-            _context.SaveChanges();
-            return true;
-        }
-
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.Id == id);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProductApp.API.BusinessLogic;
 using ProductApp.Data;
 
 namespace ProductApp.API
@@ -24,12 +25,12 @@ namespace ProductApp.API
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowOrigin", builder => {
-                    //builder.WithOrigins("http://localhost:800").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                   
                     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-                    //builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost");
-                    //builder.SetIsOriginAllowed(origin => true);
+                   
                 });
             });
+            services.AddScoped<IProductLogic, ProductLogic>();
             services.AddControllers();
             
             services.AddDbContext<ProductContext>(opt =>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/Product-create.model';
 import { ProductService } from 'src/app/sharedServices/product.service';
 @Component({
@@ -14,6 +15,7 @@ export class ProductDetailComponent implements OnInit {
   pageTitle ='';
   product: Product;
   errorMessage = '';
+  successMessage = '';
   selectedProductId:number = 0;
   constructor(private service: ProductService, 
     private router: Router,
@@ -78,6 +80,7 @@ export class ProductDetailComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+    var self = this;
     const id = this.selectedProductId;
     const productReq: Product = {
       id: id,
@@ -90,15 +93,17 @@ export class ProductDetailComponent implements OnInit {
     .subscribe(
       (data: any) => {
         this.clearformControls();       
-        alert('Product saved Successfully');
-        this.router.navigate(['/products']);
+        self.successMessage='Product saved Successfully';
+        setTimeout(function(){
+          self.onBack()
+        },1000);
       },
       error => {
         if(error.error !=null){
-          alert('Error Occurred : '+ error.error.Message);  
+          self.errorMessage ='Error Occurred : '+ error.error.Message;
         }
         else{
-          alert('Error Occurred');  
+          self.errorMessage ='Error Occurred';
         }
               
       }
