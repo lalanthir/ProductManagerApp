@@ -19,4 +19,12 @@ export class ProductService {
     return this.http.get<any>(this.APIURL + `api/products/`+id);
   }
 
+  saveProduct(product:Product){
+    return this.http.post<any>(this.APIURL + `api/products`, product);
+  }
+
+  deleteProduct(id: number): Observable<any[]> {
+    return this.http.delete<any>(this.APIURL + `api/products/`+id);
+  }
+
 }

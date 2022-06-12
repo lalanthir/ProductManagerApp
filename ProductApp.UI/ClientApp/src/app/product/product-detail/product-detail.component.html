@@ -1,3 +1,86 @@
-<p>
-  product-detail works!
-</p>
+<div class='card-header'>
+  {{pageTitle}}
+</div>
+<div class="card-body">
+  <form novalidate (ngSubmit)="saveProduct()" [formGroup]="form">
+    <div class="form-group row mb-2">
+      <label class="col-md-4 col-form-label ">Name:</label>
+      <div class="col-md-8">
+        <input type="text" id="nname" class="form-control" formControlName="Name" placeholder="Name"
+        [ngClass]="{'is-invalid': (form.get('Name').touched ||
+        form.get('Name').dirty) &&
+        !form.get('Name').valid }" />
+        <span class="invalid-feedback">
+        <span *ngIf="form.get('Name').errors?.required">
+          Please enter a product name.
+        </span>
+        </span>
+      </div>
+      </div>
+      <div class="form-group row mb-2">
+        
+          <label class="col-md-4 col-form-label">Product Type:</label>
+          <div class="col-md-8">
+            <select id="type" formControlName="Type" [ngClass]="{'is-invalid': (form.get('Type').touched ||
+            form.get('Type').dirty) &&
+            !form.get('Type').valid }">
+              <option value="">Choose Product Type</option>
+              <option *ngFor="let type of ProductTypeList" [ngValue]="type" >
+                   {{type}}
+               </option>
+            </select>
+            <span class="invalid-feedback">
+              <span *ngIf="form.get('Type').errors?.required">
+                Please select a Product type.
+              </span>
+            
+            </span>
+          </div>
+          </div>
+          <div class="form-group row mb-2">
+            <label class="col-md-4 col-form-label">Active:</label>
+            <div class="col-md-8">
+            <input id="active"
+            type="checkbox"
+            formControlName="Active"/>
+            </div>
+          </div>
+          <div class="form-group row mb-2">
+            <label class="col-md-4 col-form-label">Price:</label>
+            <div class="col-md-8">
+            <input 
+            id="price"
+            type="number"
+            min="0.00"
+            formControlName="Price"  [ngClass]="{'is-invalid': (form.get('Price').touched ||
+            form.get('Price').dirty) &&
+            !form.get('Price').valid }"/>
+            <span class="invalid-feedback">
+              <span *ngIf="form.get('Price').errors?.min">
+                Price should be atleast 1.00.
+              </span>
+              <span *ngIf="form.get('Type').errors?.required">
+                Please enter a valid price.
+              </span>
+            </span>
+            </div>
+  
+          </div>
+  <div class="form-group row mb-2">
+    <div class="offset-md-2 col-md-4">
+      <button class="btn btn-primary mr-3"
+              type="submit"
+              style="width:80px" > Save
+      </button>
+      <button class="btn btn-outline-secondary mr-3"
+      style="width:80px;"
+      type="button"
+      title="Cancel changes"
+      [routerLink]="['/products']">
+Cancel
+</button>
+    </div>
+    </div>
+  
+    </form>
+</div>
